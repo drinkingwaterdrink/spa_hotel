@@ -1,38 +1,70 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomList {
-    private List<Room> arr = new ArrayList<>();
+public class Room { //객실
 
-    public RoomList() {
-        this.arr.add(new Room("스탠다드",101));
-        this.arr.add(new Room("스탠다드",102));
-        this.arr.add(new Room("스탠다드",103));
-        this.arr.add(new Room("디럭스",201));
-        this.arr.add(new Room("디럭스",202));
-        this.arr.add(new Room("디럭스",203));
-        this.arr.add(new Room("프리미어",301));
-        this.arr.add(new Room("프리미어",302));
-        this.arr.add(new Room("프리미어",303));
-    }
+    private int size;   //크기
+    private int price;   //숙박비
+    private int room_num;   //객실호수
+    private String type;     //객실타입
 
-    public void showAllRoomList() {
-        for (Room room :this.arr) {
-            System.out.println(room);
+    private List<String> date_list = new ArrayList<>();   //예약여부 (?)
+
+    public Room(String type, int room_num) {
+        switch (type) {
+            case "스탠다드":
+                this.type = type;
+                this.size = 20;
+                this.price = 50000;
+                this.room_num = room_num;
+                break;
+            case "디럭스":
+                this.type = type;
+                this.size = 40;
+                this.price = 70000;
+                this.room_num = room_num;
+                break;
+            case "프리미어":
+                this.type = type;
+                this.size = 60;
+                this.price = 100000;
+                this.room_num = room_num;
+                break;
         }
     }
 
-    public Room getRoom(int room_num) {                    //룸넘버를 넣으면 룸을 리턴해주는 함수
-        int cnt = 0;
-        for (Room room : this.arr) {
-            if(room.getRoom_num() == room_num) {
-                cnt += 1;
-                return room;
-            }
-        }
-        if (cnt == 0) {
-            System.out.println("해당 호수가 존재하지 않습니다.");
-        }
-        return null;
+    @Override
+    public String toString() {
+        return
+                "\n방호수 : " + room_num +"호"+
+                        "\n 타입 : " + type +
+                "\n 가격 : " + price +"원"+
+                "\n 방크기 : " + size +" 제곱미터";
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getRoom_num() {
+        return room_num;
+    }
+
+    public List<String> getDate_list() {
+        return date_list;
+    }
+
+    public void addDate_list(String date) {
+        this.date_list.add(date);
     }
 }
+
+//1.기본 로직대로 돌아가게 만들기
+
+
+
+
+//2.DB
+//3.mvc패턴인데
+//4.vip고객이있어서 일정횟수나 ㄷ일정금액을 결제하면 추가할인이된다
+//5.

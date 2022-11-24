@@ -8,7 +8,7 @@ public class Room { //객실
     private int room_num;   //객실호수
     private String type;     //객실타입
 
-    private List<String> date_list = new ArrayList<>();   //예약여부 (?)
+    private List<Integer> date_list = new ArrayList<>();   //예약여부 (?)
 
     public Room(String type, int room_num) {
         switch (type) {
@@ -38,8 +38,8 @@ public class Room { //객실
         return
                 "\n방호수 : " + room_num +"호"+
                         "\n 타입 : " + type +
-                "\n 가격 : " + price +"원"+
-                "\n 방크기 : " + size +" 제곱미터";
+                        "\n 가격 : " + price +"원"+
+                        "\n 방크기 : " + size +" 제곱미터";
     }
 
     public int getPrice() {
@@ -50,11 +50,21 @@ public class Room { //객실
         return room_num;
     }
 
-    public List<String> getDate_list() {
+    public List<Integer> getDate_list() {
         return date_list;
     }
 
-    public void addDate_list(String date) {
-        this.date_list.add(date);
+    public boolean addDate_list(int date) {
+
+
+        for(Integer day : date_list){
+            if(day==date){  //중복된 예약일이 있다면
+                return false;
+            }
+            this.date_list.add(date);
+            return true;        //중복된 예약일없으면 삽입
+        }
+
+
     }
 }

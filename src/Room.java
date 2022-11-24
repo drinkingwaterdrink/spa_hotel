@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Room { //객실
 
     private int size;   //크기
@@ -5,7 +8,7 @@ public class Room { //객실
     private int room_num;   //객실호수
     private String type;     //객실타입
 
-    private boolean isReserved;   //예약여부 (?)
+    private List<String> date_list = new ArrayList<>();   //예약여부 (?)
 
     public Room(String type, int room_num) {
         switch (type) {
@@ -14,21 +17,18 @@ public class Room { //객실
                 this.size = 20;
                 this.price = 50000;
                 this.room_num = room_num;
-                this.isReserved = false;
                 break;
             case "디럭스":
                 this.type = type;
                 this.size = 40;
                 this.price = 70000;
                 this.room_num = room_num;
-                this.isReserved = false;
                 break;
             case "프리미어":
                 this.type = type;
                 this.size = 60;
                 this.price = 100000;
                 this.room_num = room_num;
-                this.isReserved = false;
                 break;
         }
     }
@@ -48,6 +48,14 @@ public class Room { //객실
 
     public int getRoom_num() {
         return room_num;
+    }
+
+    public List<String> getDate_list() {
+        return date_list;
+    }
+
+    public void addDate_list(String date) {
+        this.date_list.add(date);
     }
 }
 

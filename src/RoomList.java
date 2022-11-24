@@ -16,7 +16,7 @@ public class RoomList {
         this.arr.add(new Room("프리미어",303));
     }
 
-    public void showALlRoomList() {
+    public void showAllRoomList() {
         for (Room room :this.arr) {
             System.out.println(room);
         }

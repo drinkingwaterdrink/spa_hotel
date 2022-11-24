@@ -1,11 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Room { //객실
 
     private int size;   //크기
     private int price;   //숙박비
-
     private int room_num;   //객실호수
-
     private String type;     //객실타입
+
+    private List<String> date_list = new ArrayList<>();   //예약여부 (?)
 
     public Room(String type, int room_num) {
         switch (type) {
@@ -46,14 +49,12 @@ public class Room { //객실
     public int getRoom_num() {
         return room_num;
     }
+
+    public List<String> getDate_list() {
+        return date_list;
+    }
+
+    public void addDate_list(String date) {
+        this.date_list.add(date);
+    }
 }
-
-//1.기본 로직대로 돌아가게 만들기
-
-
-
-
-//2.DB
-//3.mvc패턴인데
-//4.vip고객이있어서 일정횟수나 ㄷ일정금액을 결제하면 추가할인이된다
-//5.

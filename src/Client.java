@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class Client {   //고객
+public class Client {
     Scanner sc = new Scanner(System.in);
 
     String phonePattern = "^\\d{3}-\\d{4}-\\d{4}$";
@@ -25,8 +26,9 @@ public class Client {   //고객
         System.out.println("소지금액을 입력해주세요.");
         int cMoney = sc.nextInt();
         sc.nextLine();
+        UUID cId = null;
 
-        this.arr.add(new ClientList(cName, cNumber, cMoney));
+        this.arr.add(new ClientList(cName, cNumber, cMoney, cId));
     }
 
 

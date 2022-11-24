@@ -10,16 +10,23 @@ public class Hotel {    //호텔
         this.money = money;
     }
 
-    public void addReserv(Client client, String date, int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
-        Reserv reserv = new Reserv(client,date,room_num);
-        boolean ck = reserv.ck(client,date,room_num);
-        if (ck) {
+    public void addReserv(Client client,int resrv_Date ,int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
+        Reserv reserv = new Reserv();
+        String ck = reserv.reserv_Room(client,roomList,resrv_Date,room_num);   //검증과정
+        if (ck.equals("0")) {
+            System.out.println("예악불가 - 잔고부족");
+        }else if(ck.equals("1")){
+            System.out.println("예약불가 - 전화번호 양식 오류");
+
+        }else if(ck.equals("2")){
+            System.out.println("예약불가 - 이미 사용중인 객실");
+        }else{
             this.reservList.add(reserv);
-            this.roomList.getRoom(room_num).addDate_list(date);                    //해당 room 인스턴스에 예약날짜를 추가
+            //this.roomList.getRoom(room_num).addDate_list(date);                    //해당 room 인스턴스에 예약날짜를 추가
+            //내부에서 해줘야함
         }
-        else {
-            System.out.println("해당예약은 할수 없습니다.");
-        }
+
+
     }
 
     public void cancleReserv(String id) {             //고객으로 부터 받은 id에 해당하는 reserve를 reservList에서 삭제
@@ -41,8 +48,8 @@ public class Hotel {    //호텔
         for (Room room : this.roomList.getArr()) {
             int cnt = 0;
             if(room.getDate_list().contains(date)) {
-                    cnt +=1;
-                }
+                cnt +=1;
+            }
 
             if(cnt == 0) {
                 System.out.println(room);

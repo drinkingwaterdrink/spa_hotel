@@ -23,6 +23,20 @@ public class Hotel {    //호텔
 //            money -= 금액;
 //        }
     }
+
+    public void showClientReserv(String id) {                      //고객은 자신의 예약 목록을 조회 할 수 있다.( 예약 번호로 예약 내역을 조회한다)
+        int cnt = 0;
+        for (Reserv reserv : this.reservList) {
+            if(reserv.id == id) {
+                System.out.println(reserv);
+                cnt += 1;
+                break;
+            }
+        }
+        if (cnt == 0) {
+            System.out.println("해당 예약이 존재하지 않습니다.");
+        }
+    }
     public void showAllReservList() {                  //호텔은 모든 예약 목록을 조회 할 수 있다.
         for (Reserv reserv : this.reservList) {
             System.out.println(reserv);

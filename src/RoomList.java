@@ -21,4 +21,22 @@ public class RoomList {
             System.out.println(room);
         }
     }
+
+    public List<Room> getArr() {
+        return arr;
+    }
+
+    public Room getRoom(int room_num) {                    //룸넘버를 넣으면 룸을 리턴해주는 함수
+        int cnt = 0;
+        for (Room room : this.arr) {
+            if(room.getRoom_num() == room_num) {
+                cnt += 1;
+                return room;
+            }
+        }
+        if (cnt == 0) {
+            System.out.println("해당 호수가 존재하지 않습니다.");
+        }
+        return null;
+    }
 }

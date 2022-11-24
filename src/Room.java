@@ -27,11 +27,6 @@ public class Room { //객실
                 this.price = 100000;
                 this.room_num = room_num;
                 break;
-            default:
-                System.out.println("\n================================");
-                System.out.println("****없는 타입의 방입니다.(1~3입력)****");
-                System.out.println("================================\n");
-                break;
         }
     }
 

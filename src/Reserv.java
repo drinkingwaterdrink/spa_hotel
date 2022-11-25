@@ -19,7 +19,7 @@ public class Reserv{   //예약
     
         ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss+'09:00'");
-        String date = zonedDateTime.format(formatter)
+        String date = zonedDateTime.format(formatter);
 
 
 

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Hotel {    //호텔
     RoomList roomList = new RoomList();
@@ -9,7 +10,7 @@ public class Hotel {    //호텔
     public Hotel(int money) {
         this.money = money;
     }
-    public void addReserv(Client client,int reserv_Date ,int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
+    public String addReserv(Client client, int reserv_Date , int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
         Reserv reserv = new Reserv();
         String ck = reserv.reserv_Room(client,roomList,reserv_Date,room_num);   //검증과정
         if (ck.equals("0")) {
@@ -24,10 +25,10 @@ public class Hotel {    //호텔
             //정산
             client.money-= roomList.getRoom(room_num).getPrice(); // 고객의 돈을 객실 가격만큼 차감
             this.money = roomList.getRoom(room_num).getPrice(); //호텔의 돈을 객실 가격만큼 증가
-
+            return ck;
 
         }
-
+        return ck;  //이곳에는 도착하지않음.(위의 if문에서 반드시 종료됨)
 
     }
 

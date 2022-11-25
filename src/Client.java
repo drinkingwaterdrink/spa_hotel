@@ -4,14 +4,14 @@ import java.util.Scanner;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class Client {
+public class ClientList {
     Scanner sc = new Scanner(System.in);
 
     String phonePattern = "^\\d{3}-\\d{4}-\\d{4}$";
 
     List<ClientList> arr = new ArrayList<>();
 
-    public Client() {}
+    public ClientList() {}
 
     public void addClient() {
         System.out.println("이름을 입력해주세요.");

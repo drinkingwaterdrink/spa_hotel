@@ -9,10 +9,9 @@ public class Hotel {    //호텔
     public Hotel(int money) {
         this.money = money;
     }
-
-    public void addReserv(Client client,int resrv_Date ,int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
+    public void addReserv(Client client,int reserv_Date ,int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
         Reserv reserv = new Reserv();
-        String ck = reserv.reserv_Room(client,roomList,resrv_Date,room_num);   //검증과정
+        String ck = reserv.reserv_Room(client,roomList,reserv_Date,room_num);   //검증과정
         if (ck.equals("0")) {
             System.out.println("예악불가 - 잔고부족");
         }else if(ck.equals("1")){
@@ -33,6 +32,8 @@ public class Hotel {    //호텔
         int cnt = 0;
         for (Reserv reserv : this.reservList) {
             if(reserv.client.id.equals(id)) {
+
+                reserv.room.delDate_List(reserv.getDay_date()); // 삭제할 날자 던저줘야함
                 this.reservList.remove(reserv);
                 cnt += 1;
                 break;

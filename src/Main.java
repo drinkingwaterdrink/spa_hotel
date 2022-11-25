@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Main {
     public static void main(String arg[]) {
@@ -9,8 +10,9 @@ public class Main {
 
         String phonePattern = "^\\d{3}-\\d{4}-\\d{4}$";
         int choice;
-        boolean flag = false;
+        boolean flag1 = false;
         boolean flag2 = false;
+        boolean flag3 = false;
         Reserv reserveList = new Reserv();
         while (true) {
             System.out.println("=====================");
@@ -28,6 +30,7 @@ public class Main {
                     String adminPassword = sc.nextLine();
                     if (adminPassword.equals(admin.getPassword())) {
                         while (true) {
+                            System.out.println("\n-----------------------관리자모드-----------------------");
                             System.out.println("\n1. 모든예약내역 확인 2.예약 취소 3.예약가능한객실 확인 4. 종료");
                             System.out.println("숫자를 입력해주세요.");
 
@@ -40,7 +43,7 @@ public class Main {
                                     break;
                                 case 2:
                                     System.out.println("취소하고자하는 예약 id를 입력해주세요");
-                                    String inputId = sc.nextLine();
+                                    UUID inputId = UUID.fromString(sc.nextLine());
                                     hotel.cancleReserv(inputId);
                                     break;
                                 case 3:
@@ -50,7 +53,7 @@ public class Main {
                                     break;
                                 case 4:
                                     System.out.println("이용 감사합니다.");
-                                    flag = true;
+                                    flag2 = true;
                                     break;
                                 default:
                                     System.out.println("\n================================");
@@ -58,7 +61,7 @@ public class Main {
                                     System.out.println("================================\n");
                                     break;
                             }
-                            if (flag == true) break;
+                            if (flag2 == true) break;
                         }
                     } else {
                         System.out.println("관리자 비밀번호가 틀렸습니다.");
@@ -68,6 +71,7 @@ public class Main {
                 case 2:
                     System.out.println("\n고객 화면입니다.");
                     while (true) {
+                        System.out.println("\n-----------------------고객예약-----------------------");
                         System.out.println("\n1. 예약 하기 2. 예약 조회 3. 예약 취소 4. 예약 가능객실보기 5. 종료");
                         System.out.println("숫자를 입력해주세요.");
 
@@ -76,22 +80,21 @@ public class Main {
 
                         switch (choice) {
                             case 1:
-                                clientList.addClient();
+                                Client client = new Client("김갑신","010-1234-1234",100000,null);
                                 System.out.println("예약하고자하는 날짜를 입력해주세요 ex) 2022년11월25일 -> 20221125");
                                 int inputDate = sc.nextInt();
                                 System.out.println("예약하고자하는 객실번호를 입력해주세요 ex) 301호 -> 301");
                                 int inputRoomNum = sc.nextInt();
-                                hotel.addReserv(clientList.getClient(), inputDate, inputRoomNum);
-                                System.out.println("예약이 완료되었습니다.");
+                                hotel.addReserv(client, inputDate, inputRoomNum);
                                 break;
                             case 2:
                                 System.out.println("조회하고자하는 예약 id를 입력해주세요");
-                                String inputId = sc.nextLine();
+                                UUID inputId = UUID.fromString(sc.next());
                                 hotel.showClientReserv(inputId);
                                 break;
                             case 3:
                                 System.out.println("취소하고자하는 예약 id를 입력해주세요");
-                                String inputId2 = sc.nextLine();
+                                UUID inputId2 = UUID.fromString(sc.nextLine());
                                 hotel.cancleReserv(inputId2);
                                 break;
                             case 4:
@@ -101,7 +104,7 @@ public class Main {
                                 break;
                             case 5:
                                 System.out.println("이용 감사합니다.");
-                                flag = true;
+                                flag3 = true;
                                 break;
                             default:
                                 System.out.println("\n================================");
@@ -109,12 +112,12 @@ public class Main {
                                 System.out.println("================================\n");
                                 break;
                         }
-                        if (flag == true) break;
+                        if (flag3 == true) break;
                     }
                     break;
                 case 3:
                     System.out.println("프로그램을 종료합니다");
-                    flag2 = true;
+                    flag1 = true;
                     break;
                 default:
                     System.out.println("\n================================");
@@ -122,7 +125,8 @@ public class Main {
                     System.out.println("================================\n");
                     break;
             }
-            if (flag2 == true) break;
+            if (flag1 == true) break;
         }
+
     }
 }

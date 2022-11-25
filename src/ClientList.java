@@ -9,7 +9,7 @@ public class ClientList {
 
     String phonePattern = "^\\d{3}-\\d{4}-\\d{4}$";
 
-    List<ClientList> arr = new ArrayList<>();
+    List<Client> arr = new ArrayList<>();
 
     public ClientList() {}
 
@@ -28,7 +28,7 @@ public class ClientList {
         sc.nextLine();
         UUID cId = null;
 
-        this.arr.add(new ClientList(cName, cNumber, cMoney, cId));
+        this.arr.add(new Client(cName, cNumber, cMoney, cId));
     }
 
 

@@ -8,19 +8,23 @@ import java.util.UUID;
 
 public class Reserv{   //예약
 
+    //    String name;    //예약자 이름
+    //    String number;  //예약자 번호
+    //    int money;  //소지금
+    //    UUID id;
+        Client client;
+        //클라이언트가 위의 내용을 가지고있음
+
         Room room;      //객실
-        String name;    //예약자 이름
-        String number;  //예약자 번호
-        //전화 번호 제한(XXX-XXXX-XXXX) 정규 표현식
         String date;
-        String id;
+
 
 
 
     //예약은 객실, 고객의 이름, 고객의 전화번호, 예약 날짜를 가지고 있다.
             //!! 이 메소드는 예약이 완료될때만 실행됨
                 //이전 메소드에서 고객데이터+원하는 객실을 받아옴
-    public String client_save(Client client,Room room,int resrv_Date,String id){
+    public String client_save(Client client,Room room,int resrv_Date,UUID id){
 
         //return 1,2는 에러출력, 4는 정상작동
 
@@ -28,7 +32,7 @@ public class Reserv{   //예약
 
 
         this.room = room;
-        this.name = client.name;
+        this.client.name = client.name;
 
         //String regExp = "^01(?:0|1|[6-9])[-]?(\\d{4})[-]?(\\d{4})$";
         String regExp = "^01(?:0|1|[6-9])-(\\d{4})-(\\d{4})$";
@@ -45,7 +49,7 @@ public class Reserv{   //예약
 
         if(client.number.matches(regExp)){
             //전화번호가 XXX-XXXX-XXXX식이 맞다면 트루 반환
-            this.number = client.number;
+            this.client.number = client.number;
         }else{
             //전화번호 재대로 안되있으면 에러넘김 // 호텔클래스에서 넘기는게좋을듯
             //System.out.println("잘못된 전화번호 입니다!!!");
@@ -78,7 +82,7 @@ public class Reserv{   //예약
 
 
 
-        this.id = id;
+        this.client.id =  id;
 
         return "4";
 
@@ -90,11 +94,12 @@ public class Reserv{   //예약
         //getmoney변경필요
         if(client.money>room.getRoom(room_num).getPrice()){ //돈이 충분히 있다면
             //예약가능
-            String uuid = UUID.randomUUID().toString();
-            String query = client_save(client,room.getRoom(room_num),resrv_Date,id);
+            UUID uuid = UUID.randomUUID();
+            //String uuid = UUID.randomUUID().toString();
+            String query = client_save(client,room.getRoom(room_num),resrv_Date,client.id);
             if(query.equals("4")){
                 //정상생성. uuid 리턴
-                return uuid;
+                return uuid.toString();
             }else if(query.equals("2")){
                 return "2"; //1이라는 스트링이 리턴되면 예약불가-전화번호에러
             }else if(query.equals("1")){

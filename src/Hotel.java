@@ -44,7 +44,7 @@ public class Hotel {    //호텔
 
     }
 
-    public void showReservableRoomList(String date) {                  //호텔 해당날짜에 예약가능한 방을 보여주는 기능
+    public void showReservableRoomList(int date) {                  //호텔 해당날짜에 예약가능한 방을 보여주는 기능
         for (Room room : this.roomList.getArr()) {
             int cnt = 0;
             if(room.getDate_list().contains(date)) {

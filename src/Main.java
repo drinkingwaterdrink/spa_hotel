@@ -73,9 +73,6 @@ public class Main {
 
                     switch (choice) {
                         case 1:
-                            Client client = new Client();
-                            client.addClient();
-                            hotel.addReserv(client);
                             break;
                         case 2:
                             break;

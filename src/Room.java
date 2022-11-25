@@ -64,7 +64,6 @@ public class Room { //객실
             this.date_list.add(date);
             return true;        //중복된 예약일없으면 삽입
         }
-
-
+        return true;
     }
 }

@@ -27,6 +27,20 @@ public class Client {
                 "\n예약 아이디 : " + id
                 ;
     }
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 
 }

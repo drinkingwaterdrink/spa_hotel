@@ -16,7 +16,10 @@ public class Reserv{   //예약
         //클라이언트가 위의 내용을 가지고있음
 
         Room room;      //객실
-        String date;
+    
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss+'09:00'");
+        String date = zonedDateTime.format(formatter)
 
 
 

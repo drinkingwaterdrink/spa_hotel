@@ -39,7 +39,7 @@ public class Reserv{   //예약
 
 
         this.room = room;
-        this.client.name = client.name;
+        this.client = client;
 
         //String regExp = "^01(?:0|1|[6-9])[-]?(\\d{4})[-]?(\\d{4})$";
         String regExp = "^01(?:0|1|[6-9])-(\\d{4})-(\\d{4})$";
@@ -69,15 +69,16 @@ public class Reserv{   //예약
 
         // ISO 8601
         // UTC(받아와야함)
-        TimeZone time;
-        Date dates = new Date();
-        DateFormat df = new SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ssX':00'");
-        time = TimeZone.getTimeZone("Asia/Seoul");
-        df.setTimeZone(time);
-        System.out.format("%n%s%n%n",df.format(dates));
+//         TimeZone time;
+//         Date dates = new Date();
+//         DateFormat df = new SimpleDateFormat(
+//                 "yyyy-MM-dd'T'HH:mm:ssX':00'");
+//         time = TimeZone.getTimeZone("Asia/Seoul");
+//         df.setTimeZone(time);
+//         System.out.format("%n%s%n%n",df.format(dates));
 
-        this.date = df.format(dates);
+//         this.date = df.format(dates);
+         System.out.format(date+"\n");
 
         if(room.addDate_list(reserv_Date)){
             //중복된 예약일이 없다면
@@ -125,7 +126,13 @@ public class Reserv{   //예약
     }
 
 
-
+  @Override
+    public String toString() {
+        return "예약자명 : " + client.name +
+                room +
+                "\n예약시간 : " + date +
+                "\n예약번호 : " + client.getId();
+    }
 
 
 }

@@ -32,7 +32,7 @@ public class Hotel {    //호텔
     public void cancleReserv(String id) {             //고객으로 부터 받은 id에 해당하는 reserve를 reservList에서 삭제
         int cnt = 0;
         for (Reserv reserv : this.reservList) {
-            if(reserv.id == id) {
+            if(reserv.client.id.equals(id)) {
                 this.reservList.remove(reserv);
                 cnt += 1;
                 break;
@@ -60,7 +60,7 @@ public class Hotel {    //호텔
     public void showClientReserv(String id) {                      //고객은 자신의 예약 목록을 조회 할 수 있다.( 예약 번호로 예약 내역을 조회한다)
         int cnt = 0;
         for (Reserv reserv : this.reservList) {
-            if(reserv.id == id) {
+            if(reserv.client.id.equals(id)) {
                 System.out.println(reserv);
                 cnt += 1;
                 break;

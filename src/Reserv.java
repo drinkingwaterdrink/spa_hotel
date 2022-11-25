@@ -1,6 +1,9 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -16,18 +19,19 @@ public class Reserv{   //예약
         //클라이언트가 위의 내용을 가지고있음
 
         Room room;      //객실
-    
+        //String date;
         ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss+'09:00'");
         String date = zonedDateTime.format(formatter);
-
+        int day_date;        ///실제 숙박하는 예약날의 날자
 
 
 
     //예약은 객실, 고객의 이름, 고객의 전화번호, 예약 날짜를 가지고 있다.
             //!! 이 메소드는 예약이 완료될때만 실행됨
                 //이전 메소드에서 고객데이터+원하는 객실을 받아옴
-    public String client_save(Client client,Room room,int resrv_Date,UUID id){
+    public String client_save(Client client,Room room,int reserv_Date,UUID id){
+
 
         //return 1,2는 에러출력, 4는 정상작동
 
@@ -75,9 +79,9 @@ public class Reserv{   //예약
 
         this.date = df.format(dates);
 
-        if(room.addDate_list(resrv_Date)){
+        if(room.addDate_list(reserv_Date)){
             //중복된 예약일이 없다면
-
+            this.day_date = reserv_Date;
         }else{
             return "2";
         }
@@ -93,13 +97,13 @@ public class Reserv{   //예약
     }
 
 
-    public String reserv_Room(Client client,RoomList room,int resrv_Date,int room_num){
+    public String reserv_Room(Client client,RoomList room,int reserv_Date,int room_num){
         //getmoney변경필요
         if(client.money>room.getRoom(room_num).getPrice()){ //돈이 충분히 있다면
             //예약가능
             UUID uuid = UUID.randomUUID();
             //String uuid = UUID.randomUUID().toString();
-            String query = client_save(client,room.getRoom(room_num),resrv_Date,client.id);
+            String query = client_save(client,room.getRoom(room_num),reserv_Date,client.id);
             if(query.equals("4")){
                 //정상생성. uuid 리턴
                 return uuid.toString();
@@ -116,7 +120,9 @@ public class Reserv{   //예약
 
     }
 
-
+    public int getDay_date() {
+        return day_date;
+    }
 
 
 

@@ -21,8 +21,11 @@ public class Hotel {    //호텔
             System.out.println("예약불가 - 이미 사용중인 객실");
         }else{
             this.reservList.add(reserv);
-            //this.roomList.getRoom(room_num).addDate_list(date);                    //해당 room 인스턴스에 예약날짜를 추가
-            //내부에서 해줘야함
+            //정산
+            client.money-= roomList.getRoom(room_num).getPrice(); // 고객의 돈을 객실 가격만큼 차감
+            this.money = roomList.getRoom(room_num).getPrice(); //호텔의 돈을 객실 가격만큼 증가
+
+
         }
 
 

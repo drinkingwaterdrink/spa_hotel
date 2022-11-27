@@ -5,14 +5,56 @@ import java.util.UUID;
 public class Hotel {    //호텔
     RoomList roomList = new RoomList();
     private List<Reserv> reservList = new ArrayList<>();
+    private List<Client> clientList = new ArrayList<>();        //호텔 손님 목록
     int money;  //보유자산
 
     public Hotel(int money) {
         this.money = money;
     }
+
+
+    public boolean clientUseCheck(String name,String number){       //해당 클라이언트가 현재 호텔 손님 목록에 있는지 체크
+
+
+        for(Client client : clientList){
+            if(client.getName().equals(name)){
+                if(client.getNumber().equals(number)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public Client getOldClient(String name,String number){           // 기존 고객일경우 현재 목록에서 고객반환
+
+
+        for(Client client : clientList){
+            if(client.getName().equals(name)){
+                if(client.getNumber().equals(number)){
+                    System.out.println(client.getName() + " 님은 기존 고객이십니다. \n" );
+                    return client;
+                }
+            }
+        }
+            Client client = new Client("","",0,null);       //이곳에는 코드가 도달하지않음. 예외처리용 코드
+            return client;
+
+
+    }
+
+    public Client getNewClient(String name,String number,int money){        //신규 고객일경우 새롭게 만든후 목록에 추가
+            Client client = new Client(name,number,money,null);
+            clientList.add(client);
+            return client;
+    }
+
+
+
     public String addReserv(Client client, int reserv_Date , int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
         Reserv reserv = new Reserv();
-        String ck = reserv.reserv_Room(client,this.roomList,reserv_Date,room_num);   //검증과정
+        String ck = reserv.reserv_Room(client,this.roomList,reserv_Date,room_num);   //검증과정;
         if (ck.equals("0")) {
             System.out.println("예악불가 - 잔고부족");
         }else if(ck.equals("1")){
@@ -23,7 +65,7 @@ public class Hotel {    //호텔
         }else{
             this.reservList.add(reserv);
             System.out.println("예약성공!");
-            System.out.println("예약번호 : "+client.id);
+            System.out.println("예약번호 : "+ck);
             //정산
             client.money-= roomList.getRoom(room_num).getPrice(); // 고객의 돈을 객실 가격만큼 차감
             this.money = roomList.getRoom(room_num).getPrice(); //호텔의 돈을 객실 가격만큼 증가
@@ -64,7 +106,7 @@ public class Hotel {    //호텔
         }
     }
 
-    public void showClientReserv(UUID id) {                      //고객은 자신의 예약 목록을 조회 할 수 있다.( 예약 번호로 예약 내역을 조회한다)
+    public void showClientReserv(UUID id) {                     //고객은 자신의 예약 목록을 조회 할 수 있다.( 예약 번호로 예약 내역을 조회한다)
         int cnt = 0;
         for (Reserv reserv : this.reservList) {
             if(reserv.client.id.equals(id)) {
@@ -82,5 +124,6 @@ public class Hotel {    //호텔
             System.out.println(reserv);
         }
     }
+
 
 }

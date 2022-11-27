@@ -64,6 +64,21 @@ public class Room { //객실
             this.date_list.add(date);
             return true;        //중복된 예약일없으면 삽입
         }
+        this.date_list.add(date);
         return true;
     }
+
+    public void delDate_List(int x){    //예약일 받음
+        int index = 0;
+        for(Integer day : date_list){
+            if(day==x){  //중복된 예약일이 있다면
+                date_list.remove(index);
+
+                return;
+            }
+            index++;
+        }
+    }
+
+
 }

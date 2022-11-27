@@ -70,26 +70,50 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("\n고객 화면입니다.");
+
+                    System.out.println("성함을 입력해주세요.");
+                    String name = sc.nextLine();
+                    System.out.println("전화번호를 입력해주세요.");
+                    String number = sc.nextLine();
+
+                    Client client;  // case 2 에서 사용할 클라이언트 선언
+
+                    if(hotel.clientUseCheck(name,number)){  //호텔이용 목록에있다면
+                        client = hotel.getOldClient(name,number);
+                    }else{      //신규 고객이라면  새로운 고객 생성
+                        System.out.println(name+ " 님은 신규 고객이십니다. \n" );
+                        System.out.println("소지 금액을 입력해주세요\n");
+                        int money = sc.nextInt();
+                        client = hotel.getNewClient(name,number,money);
+                    }
+
+                    System.out.println("\n\n"+name +"님 환영합니다. \n\n" );
+
+
+
                     while (true) {
                         System.out.println("\n-----------------------고객예약-----------------------");
+                        System.out.println("현재 잔액 = " + client.getMoney());
                         System.out.println("\n1. 예약 하기 2. 예약 조회 3. 예약 취소 4. 예약 가능객실보기 5. 종료");
                         System.out.println("숫자를 입력해주세요.");
+
 
                         choice = sc.nextInt();
                         sc.nextLine(); // 없으면 아래 sc.nextLine() 입력이 이상하게 된다.
 
                         switch (choice) {
                             case 1:
-                                Client client = new Client("김갑신","010-1234-1234",100000,null);
+
                                 System.out.println("예약하고자하는 날짜를 입력해주세요 ex) 2022년11월25일 -> 20221125");
                                 int inputDate = sc.nextInt();
                                 System.out.println("예약하고자하는 객실번호를 입력해주세요 ex) 301호 -> 301");
                                 int inputRoomNum = sc.nextInt();
                                 hotel.addReserv(client, inputDate, inputRoomNum);
+
                                 break;
                             case 2:
                                 System.out.println("조회하고자하는 예약 id를 입력해주세요");
-                                UUID inputId = UUID.fromString(sc.next());
+                                UUID inputId = UUID.fromString(sc.nextLine());
                                 hotel.showClientReserv(inputId);
                                 break;
                             case 3:

@@ -89,15 +89,25 @@ public class Main {
                     System.out.println("전화번호를 입력해주세요.");
                     String number = sc.nextLine();
 
-                    Client client;  // case 2 에서 사용할 클라이언트 선언
+                    Client client = new Client("null","null",0,null);  // case 2 에서 사용할 클라이언트 선언
 
                     if(hotel.clientUseCheck(name,number)){  //호텔이용 목록에있다면
                         client = hotel.getOldClient(name,number);
                     }else{      //신규 고객이라면  새로운 고객 생성
                         System.out.println(name+ " 님은 신규 고객이십니다. \n" );
                         System.out.println("소지 금액을 입력해주세요\n");
-                        int money = sc.nextInt();
-                        client = hotel.getNewClient(name,number,money);
+                        try {
+                            int money = sc.nextInt();
+                            client = hotel.getNewClient(name, number, money);
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("올바른 금액을 입력해주세요");
+                            continue;
+                        }
+
+
+
+
                     }
 
                     System.out.println("\n\n"+name +"님 환영합니다. \n\n" );

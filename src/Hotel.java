@@ -125,6 +125,7 @@ public class Hotel {    //호텔
             System.out.println(reserv);
         }
     }
+
     public void cancelPassed(Date date) {//날짜 받아서 삭제
         for (Reserv reserv : this.reservList) {
             if(reserv.dateToDelete.before(date)) {

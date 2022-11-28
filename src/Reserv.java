@@ -23,7 +23,6 @@ public class Reserv{   //예약
     ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss+'09:00'");
     String date = zonedDateTime.format(formatter);
-    Date dateToDelete = Date.from(java.time.ZonedDateTime.now().toInstant());
     int day_date;        ///실제 숙박하는 예약날의 날자
 
 

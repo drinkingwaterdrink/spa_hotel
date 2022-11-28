@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,23 +39,23 @@ public class Hotel {    //호텔
                 }
             }
         }
-            Client client = new Client("","",0,null);       //이곳에는 코드가 도달하지않음. 예외처리용 코드
-            return client;
+        Client client = new Client("","",0,null);       //이곳에는 코드가 도달하지않음. 예외처리용 코드
+        return client;
 
 
     }
 
     public Client getNewClient(String name,String number,int money){        //신규 고객일경우 새롭게 만든후 목록에 추가
-            Client client = new Client(name,number,money,null);
-            clientList.add(client);
-            return client;
+        Client client = new Client(name,number,money,null);
+        clientList.add(client);
+        return client;
     }
 
 
 
     public String addReserv(Client client, int reserv_Date , int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
         Reserv reserv = new Reserv();
-        String ck = reserv.reserv_Room(client,this.roomList,reserv_Date,room_num);   //검증과정;
+        String ck = reserv.newReserv(client,this.roomList,reserv_Date,room_num);   //검증과정;
         if (ck.equals("0")) {
             System.out.println("예악불가 - 잔고부족");
         }else if(ck.equals("1")){
@@ -81,7 +82,7 @@ public class Hotel {    //호텔
         for (Reserv reserv : this.reservList) {
             if(reserv.client.id.equals(id)) {
 
-                reserv.room.delDate_List(reserv.getDay_date()); // 삭제할 날자 던저줘야함
+                reserv.room.delDateList(reserv.getDay_date()); // 삭제할 날자 던저줘야함
                 this.reservList.remove(reserv);
                 cnt += 1;
                 break;
@@ -96,7 +97,7 @@ public class Hotel {    //호텔
     public void showReservableRoomList(int date) {                  //호텔 해당날짜에 예약가능한 방을 보여주는 기능
         for (Room room : this.roomList.getArr()) {
             int cnt = 0;
-            if(room.getDate_list().contains(date)) {
+            if(room.getDateList().contains(date)) {
                 cnt +=1;
             }
 
@@ -124,6 +125,8 @@ public class Hotel {    //호텔
             System.out.println(reserv);
         }
     }
+
+
 
 
 }

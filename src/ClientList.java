@@ -43,7 +43,7 @@ public class ClientList {
 
         }
     }
-    
+
     public Client getClient() {
         String cNumber = sc.nextLine();
 

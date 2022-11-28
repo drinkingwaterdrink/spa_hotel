@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,23 +41,23 @@ public class Hotel {    //호텔
                 }
             }
         }
-        Client client = new Client("","",0,null);       //이곳에는 코드가 도달하지않음. 예외처리용 코드
-        return client;
+            Client client = new Client("","",0,null);       //이곳에는 코드가 도달하지않음. 예외처리용 코드
+            return client;
 
 
     }
 
     public Client getNewClient(String name,String number,int money){        //신규 고객일경우 새롭게 만든후 목록에 추가
-        Client client = new Client(name,number,money,null);
-        clientList.add(client);
-        return client;
+            Client client = new Client(name,number,money,null);
+            clientList.add(client);
+            return client;
     }
 
 
 
-    public String addReserv(Client client, int reserv_Date , int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
+    public String addReserv(Client client, String reserv_Date , int room_num) {             //고객으로 부터 받은 Reserv를 검증후 reservList에 추가
         Reserv reserv = new Reserv();
-        String ck = reserv.newReserv(client,this.roomList,reserv_Date,room_num);   //검증과정;
+        String ck = reserv.reserv_Room(client,this.roomList,reserv_Date,room_num);   //검증과정;
         if (ck.equals("0")) {
             System.out.println("예악불가 - 잔고부족");
         }else if(ck.equals("1")){
@@ -82,7 +84,7 @@ public class Hotel {    //호텔
         for (Reserv reserv : this.reservList) {
             if(reserv.client.id.equals(id)) {
 
-                reserv.room.delDateList(reserv.getDay_date()); // 삭제할 날자 던저줘야함
+                reserv.room.delDate_List(reserv.getDay_date()); // 삭제할 날자 던저줘야함
                 this.reservList.remove(reserv);
                 cnt += 1;
                 break;
@@ -94,13 +96,15 @@ public class Hotel {    //호텔
 
     }
 
-    public void showReservableRoomList(int date) {                  //호텔 해당날짜에 예약가능한 방을 보여주는 기능
+    public void showReservableRoomList(String date) {                //호텔 해당날짜에 예약가능한 방을 보여주는 기능
+        Date trans_date = transformDate(date);
         for (Room room : this.roomList.getArr()) {
             int cnt = 0;
-            if(room.getDateList().contains(date)) {
-                cnt +=1;
+            for (Date date1:room.getDate_list()) {
+                if (date1.equals(trans_date)) {
+                    cnt += 1;
+                }
             }
-
             if(cnt == 0) {
                 System.out.println(room);
             }
@@ -126,7 +130,38 @@ public class Hotel {    //호텔
         }
     }
 
+    public void cancelPassed(Date date) {                //날짜 받아서 삭제
+        for (Reserv reserv : this.reservList) {
+            if(reserv.dateToDelete.before(date)) {
+                this.reservList.remove(reserv);
+                break;
+            }
+        }
+    }
 
 
+    public Date transformDate(String date)
+    {
+        SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyy-mm-dd");
 
+        // Date로 변경하기 위해서는 날짜 형식을 yyyy-mm-dd로 변경해야 한다.
+        SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
+
+        java.util.Date tempDate = null;
+
+        try {
+            // 현재 yyyymmdd로된 날짜 형식으로 java.util.Date객체를 만든다.
+            tempDate = beforeFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // java.util.Date를 yyyy-mm-dd 형식으로 변경하여 String로 반환한다.
+        String transDate = afterFormat.format(tempDate);
+
+        // 반환된 String 값을 Date로 변경한다.
+        java.sql.Date d = java.sql.Date.valueOf(transDate);
+
+        return d;
+    }
 }

@@ -46,15 +46,15 @@ public class Room { //객실
         return price;
     }
 
-    public int getRoom_num() {
+    public int getRoomNum() {
         return room_num;
     }
 
-    public List<Integer> getDate_list() {
+    public List<Integer> getDateList() {
         return date_list;
     }
 
-    public boolean addDate_list(int date) {
+    public boolean addDateList(int date) {
 
 
         for(Integer day : date_list){
@@ -68,7 +68,7 @@ public class Room { //객실
         return true;
     }
 
-    public void delDate_List(int x){    //예약일 받음
+    public void delDateList(int x){    //예약일 받음
         int index = 0;
         for(Integer day : date_list){
             if(day==x){  //중복된 예약일이 있다면

@@ -43,13 +43,26 @@ public class Main {
                                     break;
                                 case 2:
                                     System.out.println("취소하고자하는 예약 id를 입력해주세요");
-                                    UUID inputId = UUID.fromString(sc.nextLine());
-                                    hotel.cancleReserv(inputId);
+                                    try{
+                                        UUID inputId = UUID.fromString(sc.nextLine());
+                                        hotel.cancleReserv(inputId);
+                                        System.out.println("취소가 완료 되었습니다.");
+                                    }catch (Exception e){
+                                        System.out.println("올바르지 않은 ID입니다. 아이디를 다시 확인해주세요");
+                                    }
+
                                     break;
                                 case 3:
+
                                     System.out.println("조회하고자하는 날짜를 숫자로 입력해주세요");
-                                    int Inputdate = sc.nextInt();
-                                    hotel.showReservableRoomList(Inputdate);
+                                    String Inputdate = sc.nextLine();
+                                    String regExp4 = "^(\\d{8})$";   //날짜는 반드시 8글자. 예외시 에러메세지
+                                    if(Inputdate.matches(regExp4)){
+
+                                        hotel.showReservableRoomList(Integer.parseInt(Inputdate));
+                                    }else{
+                                        System.out.println("올바르지 않은 날짜입니다. 날짜를 다시 확인해주세요");
+                                    }
                                     break;
                                 case 4:
                                     System.out.println("이용 감사합니다.");
@@ -105,26 +118,69 @@ public class Main {
                             case 1:
 
                                 System.out.println("예약하고자하는 날짜를 입력해주세요 ex) 2022년11월25일 -> 20221125");
-                                int inputDate = sc.nextInt();
-                                System.out.println("예약하고자하는 객실번호를 입력해주세요 ex) 301호 -> 301");
-                                int inputRoomNum = sc.nextInt();
-                                hotel.addReserv(client, inputDate, inputRoomNum);
+                                String inputDate = sc.nextLine();
+                                String regExp = "^(\\d{8})$";   //날짜는 반드시 8글자. 예외시 에러메세지
+                                if(inputDate.matches(regExp)){
+
+                                    System.out.println("예약하고자하는 객실번호를 입력해주세요 ex) 301호 -> 301");
+                                    String inputRoomNum = sc.nextLine();
+                                    String regExp2 = "^(\\d{3})$";  //객실번호는 반드시 3글자. 예외시 에러메세지
+
+                                    if(inputRoomNum.matches(regExp2)){
+
+                                        hotel.addReserv(client, Integer.parseInt(inputDate), Integer.parseInt(inputRoomNum));
+                                    }else{
+                                        System.out.println("올바르지 않은 객실번호입니다. 객실번호를 다시 확인해주세요");
+                                    }
+
+                                }else{
+                                    System.out.println("올바르지 않은 날짜입니다. 날짜를 다시 확인해주세요");
+                                }
 
                                 break;
                             case 2:
                                 System.out.println("조회하고자하는 예약 id를 입력해주세요");
-                                UUID inputId = UUID.fromString(sc.nextLine());
-                                hotel.showClientReserv(inputId);
+
+                                try{
+                                    UUID inputId = UUID.fromString(sc.nextLine());
+                                    hotel.showClientReserv(inputId);
+                                }catch (Exception e){
+                                    System.out.println("올바르지 않은 ID입니다. 아이디를 다시 확인해주세요");
+                                }
+                                
+
                                 break;
                             case 3:
                                 System.out.println("취소하고자하는 예약 id를 입력해주세요");
-                                UUID inputId2 = UUID.fromString(sc.nextLine());
-                                hotel.cancleReserv(inputId2);
+
+                                try{
+                                    UUID inputId2 = UUID.fromString(sc.nextLine());
+                                    hotel.cancleReserv(inputId2);
+                                    System.out.println("취소가 완료 되었습니다.");
+                                }catch (Exception e){
+                                    System.out.println("올바르지 않은 ID입니다. 아이디를 다시 확인해주세요");
+                                }
+
+
                                 break;
                             case 4:
+
+
                                 System.out.println("조회하고자하는 날짜를 숫자로 입력해주세요");
-                                int Inputdate = sc.nextInt();
-                                hotel.showReservableRoomList(Inputdate);
+                                String Inputdate = sc.nextLine();
+                                String regExp3 = "^(\\d{8})$";   //날짜는 반드시 8글자. 예외시 에러메세지
+                                if(Inputdate.matches(regExp3)){
+
+                                    hotel.showReservableRoomList(Integer.parseInt(Inputdate));
+                                }else{
+                                    System.out.println("올바르지 않은 날짜입니다. 날짜를 다시 확인해주세요");
+                                }
+
+
+
+
+
+
                                 break;
                             case 5:
                                 System.out.println("이용 감사합니다.");

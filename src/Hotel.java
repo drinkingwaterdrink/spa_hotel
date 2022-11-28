@@ -129,7 +129,6 @@ public class Hotel {    //호텔
         for (Reserv reserv : this.reservList) {
             if(reserv.dateToDelete.before(date)) {
                 this.reservList.remove(reserv);
-                break;
             }
         }
     }

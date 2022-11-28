@@ -30,7 +30,7 @@ public class Reserv{   //예약
     //예약은 객실, 고객의 이름, 고객의 전화번호, 예약 날짜를 가지고 있다.
     //!! 이 메소드는 예약이 완료될때만 실행됨
     //이전 메소드에서 고객데이터+원하는 객실을 받아옴
-    public String client_save(Client client,Room room,int reserv_Date,UUID id){
+    public String saveClient(Client client,Room room,int reserv_Date,UUID id){
 
 
         //return 1,2는 에러출력, 4는 정상작동
@@ -80,7 +80,7 @@ public class Reserv{   //예약
 //         this.date = df.format(dates);
         System.out.format(date+"\n");
 
-        if(room.addDate_list(reserv_Date)){
+        if(room.addDateList(reserv_Date)){
             //중복된 예약일이 없다면
             this.day_date = reserv_Date;
         }else{
@@ -97,13 +97,13 @@ public class Reserv{   //예약
     }
 
 
-    public String reserv_Room(Client client,RoomList room,int reserv_Date,int room_num){
+    public String newReserv(Client client,RoomList room,int reserv_Date,int room_num){
         //getmoney변경필요
         if(client.money>=room.getRoom(room_num).getPrice()){ //돈이 충분히 있다면
             //예약가능
             UUID uuid = UUID.randomUUID();
             //String uuid = UUID.randomUUID().toString();
-            String query = client_save(client,room.getRoom(room_num),reserv_Date,uuid);
+            String query = saveClient(client,room.getRoom(room_num),reserv_Date,uuid);
             if(query.equals("4")){
                 //정상생성. uuid 리턴
                 return uuid.toString();

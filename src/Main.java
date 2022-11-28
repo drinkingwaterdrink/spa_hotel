@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.UUID;
 
+
 public class Main {
     public static void main(String arg[]) {
         Scanner sc = new Scanner(System.in);
@@ -82,14 +83,13 @@ public class Main {
                     }
                     break;
                 case 2:
+                    Client client = new Client("null","null",0,null);  // case 2 에서 사용할 클라이언트 선언
                     System.out.println("\n고객 화면입니다.");
-
                     System.out.println("성함을 입력해주세요.");
                     String name = sc.nextLine();
                     System.out.println("전화번호를 입력해주세요.");
                     String number = sc.nextLine();
-
-                    Client client = new Client("null","null",0,null);  // case 2 에서 사용할 클라이언트 선언
+                    if(number.matches(phonePattern)){
 
                     if(hotel.clientUseCheck(name,number)){  //호텔이용 목록에있다면
                         client = hotel.getOldClient(name,number);
@@ -99,15 +99,17 @@ public class Main {
                         try {
                             int money = sc.nextInt();
                             client = hotel.getNewClient(name, number, money);
-                            break;
+
                         } catch (Exception e) {
                             System.out.println("올바른 금액을 입력해주세요");
                             continue;
                         }
 
 
-
-
+                    }
+                    }else{
+                        System.out.println("올바르지 않은 전화번호입니다. 전화번호를 다시 확인해주세요");
+                        continue;
                     }
 
                     System.out.println("\n\n"+name +"님 환영합니다. \n\n" );

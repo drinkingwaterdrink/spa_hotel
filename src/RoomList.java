@@ -29,7 +29,7 @@ public class RoomList {
     public Room getRoom(int room_num) {                    //룸넘버를 넣으면 룸을 리턴해주는 함수
         int cnt = 0;
         for (Room room : this.arr) {
-            if(room.getRoom_num() == room_num) {
+            if(room.getRoomNum() == room_num) {
                 cnt += 1;
                 return room;
             }

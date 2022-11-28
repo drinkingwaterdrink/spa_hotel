@@ -43,6 +43,17 @@ public class ClientList {
 
         }
     }
+    
+    public Client getClient() {
+        String cNumber = sc.nextLine();
+
+        for (int i = arr.size() - 1; i >= 0; i--) {
+            if (cNumber.equals(this.arr.get(i).getNumber())) {
+                return arr.get(i);
+            }
+        }
+        return null;
+    }
 
 //    public void reserv_client(){
 //        Reserv reserv = new Reserv();

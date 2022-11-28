@@ -22,11 +22,25 @@ public class Client {
 
     public String toString() {
         return "\n예약자 이름 : " + name +
-               "\n예약자 번호 : " + number +
-               "\n소지금 : " + money +
-               "\n예약 아이디 : " + id
-               ;
+                "\n예약자 번호 : " + number +
+                "\n소지금 : " + money +
+                "\n예약 아이디 : " + id
+                ;
+    }
+    public void setId(UUID id) {
+        this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 
 }

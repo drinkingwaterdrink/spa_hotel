@@ -1,6 +1,9 @@
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.UUID;
-
 
 public class Main {
     public static void main(String arg[]) {
@@ -15,7 +18,13 @@ public class Main {
         boolean flag2 = false;
         boolean flag3 = false;
         Reserv reserveList = new Reserv();
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+
         while (true) {
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss+'09:00'");
+            System.out.println("현재 날짜입니다.: " + df.format(zonedDateTime));
+
             System.out.println("=====================");
             System.out.println("ㅐ***Hotel 911***ㅐ");
             System.out.println("1. 관리자 화면은 숫자 '1'을, 2. 고객이시면 숫자 '2', 3. 프로그램종료는 '3'을 눌러주세요.");
@@ -69,6 +78,7 @@ public class Main {
                                     System.out.println("이용 감사합니다.");
                                     flag2 = true;
                                     break;
+
                                 default:
                                     System.out.println("\n================================");
                                     System.out.println("****1~4 사이 숫자를 입력해주세요****");
@@ -85,28 +95,30 @@ public class Main {
                 case 2:
                     Client client = new Client("null","null",0,null);  // case 2 에서 사용할 클라이언트 선언
                     System.out.println("\n고객 화면입니다.");
+
                     System.out.println("성함을 입력해주세요.");
                     String name = sc.nextLine();
                     System.out.println("전화번호를 입력해주세요.");
                     String number = sc.nextLine();
+
                     if(number.matches(phonePattern)){
 
-                    if(hotel.clientUseCheck(name,number)){  //호텔이용 목록에있다면
-                        client = hotel.getOldClient(name,number);
-                    }else{      //신규 고객이라면  새로운 고객 생성
-                        System.out.println(name+ " 님은 신규 고객이십니다. \n" );
-                        System.out.println("소지 금액을 입력해주세요\n");
-                        try {
-                            int money = sc.nextInt();
-                            client = hotel.getNewClient(name, number, money);
+                        if(hotel.clientUseCheck(name,number)){  //호텔이용 목록에있다면
+                            client = hotel.getOldClient(name,number);
+                        }else{      //신규 고객이라면  새로운 고객 생성
+                            System.out.println(name+ " 님은 신규 고객이십니다. \n" );
+                            System.out.println("소지 금액을 입력해주세요\n");
+                            try {
+                                int money = sc.nextInt();
+                                client = hotel.getNewClient(name, number, money);
 
-                        } catch (Exception e) {
-                            System.out.println("올바른 금액을 입력해주세요");
-                            continue;
+                            } catch (Exception e) {
+                                System.out.println("올바른 금액을 입력해주세요");
+                                continue;
+                            }
+
+
                         }
-
-
-                    }
                     }else{
                         System.out.println("올바르지 않은 전화번호입니다. 전화번호를 다시 확인해주세요");
                         continue;
@@ -159,7 +171,7 @@ public class Main {
                                 }catch (Exception e){
                                     System.out.println("올바르지 않은 ID입니다. 아이디를 다시 확인해주세요");
                                 }
-                                
+
 
                                 break;
                             case 3:

@@ -1,4 +1,5 @@
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -9,7 +10,8 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
 
-public class Reserv{   //예약
+public class Reserv{
+    public Date dateToDelete;
 
     //    String name;    //예약자 이름
     //    String number;  //예약자 번호
@@ -23,18 +25,17 @@ public class Reserv{   //예약
     ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss+'09:00'");
     String date = zonedDateTime.format(formatter);
-    int day_date;        ///실제 숙박하는 예약날의 날자
+    String day_date;        ///실제 숙박하는 예약날의 날자
 
 
 
     //예약은 객실, 고객의 이름, 고객의 전화번호, 예약 날짜를 가지고 있다.
     //!! 이 메소드는 예약이 완료될때만 실행됨
     //이전 메소드에서 고객데이터+원하는 객실을 받아옴
-    public String saveClient(Client client,Room room,int reserv_Date,UUID id){
+    public String client_save(Client client,Room room,String reserv_Date,UUID id){
 
 
         //return 1,2는 에러출력, 4는 정상작동
-
 
 
 
@@ -80,9 +81,10 @@ public class Reserv{   //예약
 //         this.date = df.format(dates);
         System.out.format(date+"\n");
 
-        if(room.addDateList(reserv_Date)){
+        if(room.addDate_list(reserv_Date)){
             //중복된 예약일이 없다면
             this.day_date = reserv_Date;
+            this.dateToDelete = transformDate(reserv_Date);
         }else{
             return "2";
         }
@@ -97,13 +99,13 @@ public class Reserv{   //예약
     }
 
 
-    public String newReserv(Client client,RoomList room,int reserv_Date,int room_num){
+    public String reserv_Room(Client client,RoomList room,String reserv_Date,int room_num){
         //getmoney변경필요
         if(client.money>=room.getRoom(room_num).getPrice()){ //돈이 충분히 있다면
             //예약가능
             UUID uuid = UUID.randomUUID();
             //String uuid = UUID.randomUUID().toString();
-            String query = saveClient(client,room.getRoom(room_num),reserv_Date,uuid);
+            String query = client_save(client,room.getRoom(room_num),reserv_Date,uuid);
             if(query.equals("4")){
                 //정상생성. uuid 리턴
                 return uuid.toString();
@@ -120,7 +122,7 @@ public class Reserv{   //예약
 
     }
 
-    public int getDay_date() {
+    public String getDay_date() {
         return day_date;
     }
 
@@ -128,12 +130,37 @@ public class Reserv{   //예약
     @Override
     public String toString() {
         return "예약자명 : " + client.name +
+                "\n예약일자 : " + day_date +
                 room +
-                "\n예약시간 : " + date +
+                "\n예약일시 : " + date +
 
                 "\n예약번호 : " + client.getId();
 
     }
 
+    public Date transformDate(String date)
+    {
+        SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyy-mm-dd");
+
+        // Date로 변경하기 위해서는 날짜 형식을 yyyy-mm-dd로 변경해야 한다.
+        SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
+
+        java.util.Date tempDate = null;
+
+        try {
+            // 현재 yyyymmdd로된 날짜 형식으로 java.util.Date객체를 만든다.
+            tempDate = beforeFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // java.util.Date를 yyyy-mm-dd 형식으로 변경하여 String로 반환한다.
+        String transDate = afterFormat.format(tempDate);
+
+        // 반환된 String 값을 Date로 변경한다.
+        java.sql.Date d = java.sql.Date.valueOf(transDate);
+
+        return d;
+    }
 
 }

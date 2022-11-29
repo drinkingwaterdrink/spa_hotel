@@ -70,7 +70,7 @@ public class Hotel {    //호텔
             System.out.println("예약성공!");
             System.out.println("예약번호 : "+ck);
             //정산
-            client.money-= roomList.getRoom(room_num).getPrice(); // 고객의 돈을 객실 가격만큼 차감
+            client.money -= roomList.getRoom(room_num).getPrice(); // 고객의 돈을 객실 가격만큼 차감
             this.money += roomList.getRoom(room_num).getPrice(); //호텔의 돈을 객실 가격만큼 증가
             return ck;
 
@@ -85,6 +85,8 @@ public class Hotel {    //호텔
             if(reserv.client.id.equals(id)) {
 
                 reserv.room.delDate_List(reserv.getDay_date()); // 삭제할 날자 던저줘야함
+                reserv.client.money += roomList.getRoom(reserv.room.getRoom_num()).getPrice(); 
+                this.money -= roomList.getRoom(reserv.room.getRoom_num()).getPrice(); 
                 this.reservList.remove(reserv);
                 cnt += 1;
                 break;

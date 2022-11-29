@@ -71,7 +71,7 @@ public class Hotel {    //호텔
             System.out.println("예약번호 : "+ck);
             //정산
             client.money-= roomList.getRoom(room_num).getPrice(); // 고객의 돈을 객실 가격만큼 차감
-            this.money = roomList.getRoom(room_num).getPrice(); //호텔의 돈을 객실 가격만큼 증가
+            this.money += roomList.getRoom(room_num).getPrice(); //호텔의 돈을 객실 가격만큼 증가
             return ck;
 
         }
